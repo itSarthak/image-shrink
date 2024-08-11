@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, globalShortcut } = require("electron");
+const { app, BrowserWindow, Menu } = require("electron");
 
 // Set Environment
 process.env.NODE_ENV = "development";
@@ -11,6 +11,7 @@ const isWin = process.platform === "win32" ? true : false;
 const isLinux = process.platform === "linux" ? true : false;
 
 let mainWindow;
+let aboutWindow;
 
 // Main Window: This function contains the neccesary properties of our UI, laater called when the app initializes
 function createMainWindow() {
@@ -26,16 +27,24 @@ function createMainWindow() {
   mainWindow.loadFile(`${__dirname}/app/index.html`);
 }
 
+function createAboutWindow() {
+  aboutWindow = new BrowserWindow({
+    title: "About ImageShrink",
+    width: 300,
+    height: 300,
+    icon: `${__dirname}/assets/icons/Icon_256x256.png`,
+    resizable: isDev,
+    backgroundColor: "white",
+  });
+
+  aboutWindow.loadFile(`${__dirname}/app/about.html`);
+}
+
 app.on("ready", () => {
   createMainWindow();
 
   const mainMenu = Menu.buildFromTemplate(menu); // Building our own menu
   Menu.setApplicationMenu(mainMenu); // Setting menu to our own custom built menu
-
-  globalShortcut.register("CmdOrCtrl+R", () => mainWindow.reload());
-  globalShortcut.register(isMac ? "Command+Alt+I" : "Ctrl+Shift+I", () =>
-    mainWindow.toggleDevTools()
-  );
 
   mainWindow.on("closed", () => (mainWindow = null));
 });
@@ -46,17 +55,48 @@ app.on("ready", () => {
  ** application
  */
 const menu = [
-  ...(isMac ? [{ role: "appMenu" }] : []), // Only applicable for mac devices, they have a different menu style(why tf?) idk/idc
+  ...(isMac
+    ? [
+        {
+          label: app.name,
+          submenu: [
+            {
+              label: "About",
+              click: createAboutWindow,
+            },
+          ],
+        },
+      ]
+    : []), // Only applicable for mac devices, they have a different menu style(why tf?) idk/idc
   {
-    label: "File",
-    submenu: [
-      {
-        label: "Quit",
-        accelerator: "CmdOrCtrl+W", // defining shortcuts in our appliucation
-        click: () => app.quit(),
-      },
-    ],
+    role: "fileMenu",
   },
+  ...(isDev
+    ? [
+        {
+          label: "Developer",
+          submenu: [
+            { role: "reload" },
+            { role: "forcereload" },
+            { role: "separator" },
+            { role: "toggledevtools" },
+          ],
+        },
+      ]
+    : []),
+  ...(!isMac
+    ? [
+        {
+          label: "Help",
+          submenu: [
+            {
+              label: "About",
+              click: createAboutWindow,
+            },
+          ],
+        },
+      ]
+    : []),
 ];
 
 app.on("window-all-closed", () => {
