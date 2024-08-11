@@ -22,7 +22,15 @@ function createMainWindow() {
     icon: `${__dirname}/assets/icons/Icon_256x256.png`,
     resizable: isDev,
     backgroundColor: "white",
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+    },
   });
+
+  if (isDev) {
+    mainWindow.openDevTools({ mode: "undocked" }); // If we are in developer mode, this will automatically open dev tools (in a new window) as soon as our application is launched
+  }
 
   mainWindow.loadFile(`${__dirname}/app/index.html`);
 }
