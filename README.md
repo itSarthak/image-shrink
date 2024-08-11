@@ -1,70 +1,81 @@
-Here's a `README.md` file for your project **Image Shrink**:
+Here's the `README.md` file with the requested sections:
 
 ---
 
 # Image Shrink
 
-Image Shrink is an image compressor app built with Electron, Node.js, and vanilla JavaScript. It allows you to quickly shrink the size of `.jpg` or `.jpeg` images, making it easier to upload them on any platform. This lightweight and user-friendly app is perfect for anyone who needs to reduce image file sizes in a few simple steps.
+## 1. Project Overview
 
-## Features
+**Image Shrink** is a powerful and user-friendly image compressor application built using Electron, Node.js, and vanilla JavaScript. It allows users to reduce the file size of `.jpg` or `.jpeg` images quickly and efficiently, making it perfect for situations where smaller image sizes are required, such as uploading to websites or sharing via email.
 
-- Compress `.jpg` and `.jpeg` images with ease.
-- Set the compression percentage using a simple slider.
-- Lightweight and efficient, making it ideal for quick tasks.
+## 2. Technology Used
 
-## Installation
+- **Electron**: Used to create the cross-platform desktop application.
+- **Node.js**: Handles the backend processing and file system operations.
+- **Vanilla JavaScript**: Implements the frontend logic and user interface.
 
-To run Image Shrink on your system, follow these steps:
+## 3. Project Structure
 
-1. **Open Terminal:**
+```
+image-shrink/
+│
+├── assets/                 # Contains images
+│   ├── icons               # Contains icons
+├── app/                    # Source files for the application
+│   ├── css                 # Contains all the css files
+│   ├── js                  # Contains all the javascript files
+│   ├── webFonts            # Locally saved Fonts
+│   ├── about.html          # About section file
+│   └── index.html          # Main UI of our Application
+├── .gitignore
+├── main.js                 # Server file that contains the application logic
+├── package.json            # Contains all the dependencies
+└── package-lock.json
+```
+
+## 4. How to Install Locally
+
+To install and run the Image Shrink application locally, follow these steps:
+
+1. **Create a new directory for the project:**
    ```bash
-   terminal
+   mkdir image-shrink
    ```
-2. **Navigate to the project directory:**
+2. **Navigate into the project directory:**
    ```bash
    cd image-shrink
    ```
-3. **Open the project in your code editor:**
+3. **Initialize a new Git repository:**
    ```bash
-   code .
+   git init
    ```
-4. **Initialize the project:**
+4. **Pull the latest code from the GitHub repository:**
    ```bash
-   npm init
+   git pull git@github.com:itSarthak/image-shrink.git
    ```
 5. **Install the necessary dependencies:**
    ```bash
    npm install
    ```
+6. **Package the app according to your operating system:**
+   - **For Windows users:**
+     ```bash
+     npm run package-win
+     ```
+   - **For Linux users:**
+     ```bash
+     npm run package-linux
+     ```
+   - **For macOS users:**
+     ```bash
+     npm run package-mac
+     ```
 
-## Packaging the App
+## 5. How to Use
 
-After installing the dependencies, you can package the app according to your operating system:
+1. **Open the Image Shrink application.**
+2. **Upload a `.jpg` or `.jpeg` image** by clicking the upload button.
+3. **Adjust the compression percentage** using the provided slider.
+4. **Click the "Shrink" button** to compress the image.
 
-- **For Windows users:**
-
-  ```bash
-  npm run package-win
-  ```
-
-- **For Linux users:**
-
-  ```bash
-  npm run package-linux
-  ```
-
-- **For macOS users:**
-  ```bash
-  npm run package-mac
-  ```
-
-## Usage
-
-1. Open the Image Shrink app.
-2. Upload the `.jpg` or `.jpeg` image you want to compress.
-3. Set the desired compression percentage using the slider.
-4. Click the "Shrink" button to compress the image.
-
-## Repository
-
-You can find the project on GitHub: [Image Shrink Repository](https://github.com/itSarthak/image-shrink)
+The compressed image will be saved, and you can then use it for your desired purpose.
