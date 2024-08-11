@@ -54,11 +54,33 @@
     <script>
       const path = require("path");
       const os = require("os");
+      const { ipcRenderer } = require("electron");
+
+      const form = document.getElementById("image-form");
+      const slider = document.getElementById("slider");
+      const img = document.getElementById("img");
 
       document.getElementById("output-path").innerText = path.join(
         os.homedir(),
         "imageshrink"
       );
+
+      // OnSubmit
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const imgPath = img.files[0].path; //
+        const quality = slider.value;
+
+        /*
+         ** ipcRenderer is an event emitter
+         ** know more here -> https://www.electronjs.org/docs/latest/api/ipc-renderer
+         */
+        ipcRenderer.send("image:minimize", {
+          imgPath,
+          quality,
+        });
+      });
     </script>
   </body>
 </html>
