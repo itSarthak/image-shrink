@@ -20,7 +20,7 @@
         <div class="file-field input-field">
           <div class="btn">
             <span>Browse</span>
-            <input type="file" id="img" />
+            <input type="file" id="img" accept="image/*" />
           </div>
 
           <div class="file-path-wrapper">
@@ -79,6 +79,12 @@
         ipcRenderer.send("image:minimize", {
           imgPath,
           quality,
+        });
+      });
+      // On Done
+      ipcRenderer.on("image:done", () => {
+        M.toast({
+          html: `Image resized to ${slider.value}% quality`,
         });
       });
     </script>

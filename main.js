@@ -5,16 +5,15 @@ const imagemin = require("imagemin");
 const imageminMozjpeg = require("imagemin-mozjpeg");
 const imageminPngquant = require("imagemin-pngquant");
 const slash = require("slash");
+const log = require("electron-log");
 
 // Set Environment
-process.env.NODE_ENV = "development";
+process.env.NODE_ENV = "production";
 
 const isDev = process.env.NODE_ENV !== "production" ? true : false;
 
 // Identifying the operating system of the user
 const isMac = process.platform === "darwin" ? true : false;
-const isWin = process.platform === "win32" ? true : false;
-const isLinux = process.platform === "linux" ? true : false;
 
 let mainWindow;
 let aboutWindow;
@@ -128,10 +127,13 @@ async function shrinkImage({ imgPath, quality, dest }) {
         imageminPngquant([pngQuality, pngQuality]),
       ],
     });
-    shell.openPath(dest);
-    console.log(files);
+    log.info(files);
+
+    shell.openPath(dest); // Opens the directory where the newly compressed file is saved
+
+    mainWindow.webContents.send("image:done");
   } catch (error) {
-    console.log(error);
+    log.error(err);
   }
 }
 
